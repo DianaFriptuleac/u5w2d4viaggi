@@ -13,9 +13,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Prenotazione {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
-    private long id;
+    private Long id;
     private LocalDate dataRichiesta;
     private String note;
 
@@ -23,11 +23,11 @@ public class Prenotazione {
     @JoinColumn(name = "dipendente_id", nullable = false)
     private Dipendente dipendente;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne
     @JoinColumn(name = "viaggio_id", nullable = false)
     private Viaggio viaggio;
 
-    public Prenotazione(LocalDate dataRichiesta, String note, Dipendente dipendente, Viaggio viaggio) {
+    public Prenotazione(String note, Dipendente dipendente, Viaggio viaggio) {
         this.dataRichiesta = LocalDate.now();
         this.note = note;
         this.dipendente = dipendente;
