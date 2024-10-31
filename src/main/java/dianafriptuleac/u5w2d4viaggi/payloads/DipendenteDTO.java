@@ -11,7 +11,7 @@ public record DipendenteDTO(
 
         @NotEmpty(message = "Il nome è obbligatorio!")
         @Size(min = 3, max = 30, message = "Il nome deve essere compreso tra 3 e 30 caratteri!")
-        String name,
+        String nome,
 
         @NotEmpty(message = "Il cognome è obbligatorio!")
         @Size(min = 2, max = 40, message = "Il cognome deve essere compreso tra 2 e 40 caratteri!")
