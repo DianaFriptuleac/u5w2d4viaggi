@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.stream.Collectors;
 
@@ -38,4 +39,31 @@ public class DipendentiController {
         return this.dipendenteService.saveDipendente(body);
 
     }
+
+    @GetMapping("/{dipendenteId}")
+    public Dipendente findById(@PathVariable Long dipendenteId) {
+        return this.dipendenteService.findById(dipendenteId);
+    }
+
+    @PutMapping("/{dipendenteId}")
+    public Dipendente findByIdAndUpdate(@PathVariable Long dipendenteId, @RequestBody @Validated DipendenteDTO body, BindingResult validationResult) {
+        if (validationResult.hasErrors()) {
+            validationResult.getAllErrors().forEach(System.out::println);
+            throw new BadRequestException("Ci sono stati errori nel payload!");
+        }
+        return this.dipendenteService.findByIdAndUpdate(dipendenteId, body);
+    }
+
+    @DeleteMapping("/{dipendenteId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void findByIdAndDelete(@PathVariable Long dipendenteId) {
+        this.dipendenteService.findByIdAndDelete(dipendenteId);
+    }
+
+    @PatchMapping("/{dipendenteId}/imgURL")
+    public String uploadImg(@PathVariable Long dipendenteId, @RequestParam("imgURL") MultipartFile file) {
+        return this.dipendenteService.uploadImg(dipendenteId, file);
+    }
+
 }
+
