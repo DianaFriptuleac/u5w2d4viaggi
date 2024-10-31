@@ -24,11 +24,11 @@ public class Prenotazione {
     private Dipendente dipendente;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "viaggio_id", nullable = false, unique = true)
+    @JoinColumn(name = "viaggio_id", nullable = false)
     private Viaggio viaggio;
 
     public Prenotazione(LocalDate dataRichiesta, String note, Dipendente dipendente, Viaggio viaggio) {
-        this.dataRichiesta = dataRichiesta;
+        this.dataRichiesta = LocalDate.now();
         this.note = note;
         this.dipendente = dipendente;
         this.viaggio = viaggio;
