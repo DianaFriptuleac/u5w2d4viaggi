@@ -40,7 +40,9 @@ public class PrenotazioniService {
                 });
 
         Prenotazione prenotazione = new Prenotazione(body.note(), dipendente, viaggio);
+        System.out.println("Prenotazione creata: " + prenotazione);
         return prenotazioneRepository.save(prenotazione);
+
     }
 
 
@@ -79,3 +81,5 @@ public class PrenotazioniService {
 
 
 }
+
+

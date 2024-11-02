@@ -7,6 +7,7 @@ import dianafriptuleac.u5w2d4viaggi.exceptions.BadRequestException;
 import dianafriptuleac.u5w2d4viaggi.exceptions.NotFoundException;
 import dianafriptuleac.u5w2d4viaggi.payloads.DipendenteDTO;
 import dianafriptuleac.u5w2d4viaggi.repositories.DipendenteRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +27,7 @@ public class DipendenteService {
     @Autowired
     private Cloudinary cloudinaryUploader;
 
+    @Transactional
     public Dipendente saveDipendente(DipendenteDTO body) {
         this.dipendenteRepository.findByEmail(body.email()).ifPresent(dipendente -> {
             throw new BadRequestException("Email " + body.email() + " già in uso!");

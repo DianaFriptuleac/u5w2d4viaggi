@@ -1,7 +1,10 @@
 package dianafriptuleac.u5w2d4viaggi.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
@@ -9,13 +12,12 @@ import java.time.LocalDate;
 @Table(name = "prenotazioni")
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 public class Prenotazione {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Setter(AccessLevel.NONE)
-    private Long id;
+    private long id;
     private LocalDate dataRichiesta;
     private String note;
 
@@ -32,5 +34,14 @@ public class Prenotazione {
         this.note = note;
         this.dipendente = dipendente;
         this.viaggio = viaggio;
+    }
+
+    @Override
+    public String toString() {
+        return "Prenotazione{" +
+                "id=" + id +
+                ", dataRichiesta=" + dataRichiesta +
+                ", note='" + note + '\'' +
+                '}';
     }
 }

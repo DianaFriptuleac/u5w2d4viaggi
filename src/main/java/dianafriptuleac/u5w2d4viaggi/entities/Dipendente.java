@@ -1,8 +1,12 @@
 package dianafriptuleac.u5w2d4viaggi.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +15,8 @@ import java.util.List;
 @Table(name = "dipendenti")
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
+@JsonIgnoreProperties("prenotazioni")
 public class Dipendente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,5 +38,17 @@ public class Dipendente {
         this.cognome = cognome;
         this.email = email;
         this.imgURL = imgURL;
+    }
+
+    @Override
+    public String toString() {
+        return "Dipendente{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'' +
+                ", email='" + email + '\'' +
+                ", imgURL='" + imgURL + '\'' +
+                '}';
     }
 }
