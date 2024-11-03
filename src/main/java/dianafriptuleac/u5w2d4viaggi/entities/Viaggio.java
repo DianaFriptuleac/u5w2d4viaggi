@@ -23,6 +23,7 @@ public class Viaggio {
     private LocalDate dataViaggio;
     private String stato;
 
+
     public Viaggio(String destinazione, LocalDate dataViaggio, String stato) {
         this.destinazione = destinazione;
         this.dataViaggio = dataViaggio;

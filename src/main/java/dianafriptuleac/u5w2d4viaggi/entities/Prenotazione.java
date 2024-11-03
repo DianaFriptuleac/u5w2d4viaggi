@@ -15,13 +15,13 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Prenotazione {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue
     @Setter(AccessLevel.NONE)
     private long id;
     private LocalDate dataRichiesta;
     private String note;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "dipendente_id", nullable = false)
     private Dipendente dipendente;
 

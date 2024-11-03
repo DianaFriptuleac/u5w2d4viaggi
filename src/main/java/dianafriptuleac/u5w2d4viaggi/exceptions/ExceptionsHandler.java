@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 
 @RestControllerAdvice
 public class ExceptionsHandler {
-
     @ExceptionHandler(BadRequestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorsResponceDTO handleBadrequestEx(BadRequestException ex) {
@@ -21,7 +20,6 @@ public class ExceptionsHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorsResponceDTO handleNotFoundEx(NotFoundException ex) {
         return new ErrorsResponceDTO(ex.getMessage(), LocalDateTime.now());
-
 
     }
 

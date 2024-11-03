@@ -57,7 +57,7 @@ public class DipendentiController {
     @DeleteMapping("/{dipendenteId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void findByIdAndDelete(@PathVariable Long dipendenteId) {
-        this.dipendenteService.findByIdAndDelete(dipendenteId);
+        dipendenteService.findByIdAndDelete(dipendenteId);
     }
 
     @PatchMapping("/{dipendenteId}/imgURL")

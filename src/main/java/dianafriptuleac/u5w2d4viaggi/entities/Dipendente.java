@@ -1,7 +1,6 @@
 package dianafriptuleac.u5w2d4viaggi.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -16,7 +15,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonIgnoreProperties("prenotazioni")
 public class Dipendente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +26,8 @@ public class Dipendente {
     private String email;
     private String imgURL;
 
-    @OneToMany(mappedBy = "dipendente", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
+    @OneToMany(mappedBy = "dipendente", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonIgnore //evito il ciclo infinito
     private List<Prenotazione> prenotazioni = new ArrayList<>();
 
     public Dipendente(String username, String nome, String cognome, String email, String imgURL) {

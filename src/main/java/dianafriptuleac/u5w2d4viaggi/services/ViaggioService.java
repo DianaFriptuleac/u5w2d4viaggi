@@ -4,7 +4,9 @@ import dianafriptuleac.u5w2d4viaggi.entities.Viaggio;
 import dianafriptuleac.u5w2d4viaggi.exceptions.BadRequestException;
 import dianafriptuleac.u5w2d4viaggi.exceptions.NotFoundException;
 import dianafriptuleac.u5w2d4viaggi.payloads.ViaggioDTO;
+import dianafriptuleac.u5w2d4viaggi.repositories.PrenotazioneRepository;
 import dianafriptuleac.u5w2d4viaggi.repositories.ViaggioRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +19,10 @@ public class ViaggioService {
 
     @Autowired
     private ViaggioRepository viaggioRepository;
+
+    @Autowired
+    private PrenotazioneRepository prenotazioneRepository;
+
 
     public Viaggio saveViaggio(ViaggioDTO body) {
         this.viaggioRepository.findByDestinazioneAndDataViaggio(body.destinazione(), body.dataViaggio()).ifPresent(viaggio -> {
@@ -49,9 +55,13 @@ public class ViaggioService {
         }).orElseThrow(() -> new NotFoundException(viaggioId));
     }
 
+    @Transactional
     public void findByIdAndDelete(long viaggioId) {
-        Viaggio foundViaggio = this.findById(viaggioId);
-        this.viaggioRepository.delete(foundViaggio);
+        prenotazioneRepository.deleteByViaggioId(viaggioId); //cancello anche le prenotazioni del viaggio
+        Viaggio viaggio = viaggioRepository.findById(viaggioId)
+                .orElseThrow(() -> new NotFoundException(viaggioId));
+
+        viaggioRepository.delete(viaggio);
     }
 
     public Viaggio updateStato(long viaggiId, String newStato) {

@@ -7,6 +7,7 @@ import dianafriptuleac.u5w2d4viaggi.exceptions.BadRequestException;
 import dianafriptuleac.u5w2d4viaggi.exceptions.NotFoundException;
 import dianafriptuleac.u5w2d4viaggi.payloads.DipendenteDTO;
 import dianafriptuleac.u5w2d4viaggi.repositories.DipendenteRepository;
+import dianafriptuleac.u5w2d4viaggi.repositories.PrenotazioneRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,9 +26,11 @@ public class DipendenteService {
     private DipendenteRepository dipendenteRepository;
 
     @Autowired
+    private PrenotazioneRepository prenotazioneRepository;
+
+    @Autowired
     private Cloudinary cloudinaryUploader;
 
-    @Transactional
     public Dipendente saveDipendente(DipendenteDTO body) {
         this.dipendenteRepository.findByEmail(body.email()).ifPresent(dipendente -> {
             throw new BadRequestException("Email " + body.email() + " già in uso!");
@@ -51,6 +54,7 @@ public class DipendenteService {
 
     public Dipendente findById(long dipendenteId) {
         return this.dipendenteRepository.findById(dipendenteId).orElseThrow(() -> new NotFoundException(dipendenteId));
+
     }
 
     public Dipendente findByIdAndUpdate(Long dipendenteId, DipendenteDTO body) {
@@ -76,7 +80,9 @@ public class DipendenteService {
         return this.dipendenteRepository.save(foundDipendente);
     }
 
-    public void findByIdAndDelete(Long dipendenteId) {
+    @Transactional
+    public void findByIdAndDelete(long dipendenteId) {
+        prenotazioneRepository.deleteByDipendenteId(dipendenteId); //cancello anche la prenotazione
         Dipendente foundDipendente = this.findById(dipendenteId);
         this.dipendenteRepository.delete(foundDipendente);
     }

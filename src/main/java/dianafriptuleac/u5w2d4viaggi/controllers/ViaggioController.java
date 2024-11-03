@@ -54,7 +54,7 @@ public class ViaggioController {
     @DeleteMapping("/{viaggioId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void findByIdAndDelete(@PathVariable Long viaggioId) {
-        this.viaggioService.findByIdAndDelete(viaggioId);
+        viaggioService.findByIdAndDelete(viaggioId);
     }
 
     @PatchMapping("/{viaggioId}/stato")

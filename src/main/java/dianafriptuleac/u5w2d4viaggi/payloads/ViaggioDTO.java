@@ -14,7 +14,5 @@ public record ViaggioDTO(
         @FutureOrPresent(message = "Inserire una data viaggio valida!")
         LocalDate dataViaggio,
 
-        String stato
-
-) {
+        String stato) {
 }
